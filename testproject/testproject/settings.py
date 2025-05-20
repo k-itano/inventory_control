@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',  # ローカルホスト
     'localhost',  # ローカルホスト
     '192.168.2.73',  # 必要なホストを追加
+    'inventory-control-f7ewh6e2cye6hbgt.japaneast-01.azurewebsites.net'
 ]
 
 
