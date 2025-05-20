@@ -1,0 +1,32 @@
+{% extends "base/diary_base.html" %}
+{% block body %}
+
+<h2>品目マスタ追加</h2>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %} <!-- セキュリティ必要な記述らしい -->
+    {{ form.as_p }}
+    <button type="submit">保存</button>
+</form>
+<br>
+
+<table class="list-form">
+  <tr>
+    <th>品目</th>
+    <th>品目コード</th>
+   </tr>
+  
+  {% for item in itemmst %}
+  <tr>
+    <td>{{ item.code }}</td>
+    <td>{{ item.name }}</td>
+  </tr>
+  {% empty %}
+  <div>マスタがないよ</div>
+  {% endfor %}
+</table>
+
+<div class="bottom-fix">
+  <a href="{% url 'diary:index' %}" class="white">戻る</a>
+</div>
+
+{% endblock %}

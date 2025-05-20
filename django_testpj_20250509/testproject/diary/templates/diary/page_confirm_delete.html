@@ -1,0 +1,53 @@
+{% extends "base/diary_base.html" %}
+{% block body %}
+
+<form method="POST">
+    {% csrf_token %}
+    <p>このデータを消すよ？</p>
+    <button type="submit">削除</button>
+</form>
+<table>
+    <tr>
+      <th>品目</th>
+      <td>{{ page.code_item }}</td>
+    </tr>
+    <tr>
+      <th>品種</th>
+      <td>{{ page.code_item_brand }}</td>
+    </tr>
+    <tr>
+      <th>産地</th>
+      <td>{{ page.code_area }}</td>
+    </tr>
+    <tr>
+      <th>担当者</th>
+      <td>{{ page.code_put_human }}</td>
+    </tr>
+    <tr>
+      <th>地名</th>
+      <td>{{ page.area_detail }}</td>
+    </tr>
+    <tr>
+      <th>入庫日時</th>
+      <td>{{ page.put_date }}</td>
+    </tr>
+    <tr>
+      <th>入庫数</th>
+      <td>{{ page.put_qty }}</td>
+      <td>{{ page.put_qty_unit }}</td>
+    </tr>
+    <tr>
+      <th>入庫重量</th>
+      <td>{{ page.put_wt }}</td>
+      <td>{{ page.put_wt_unit }}</td>
+    </tr>
+    <tr>
+      <th>更新日時</th>
+      <td>{{ page.updated_at }}</td>
+    </tr>
+  </table>
+{% if page.picture %}
+    <img src="{{ page.picture.url }}">
+{% endif %}
+
+{% endblock %}

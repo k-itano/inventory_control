@@ -1,0 +1,39 @@
+{% extends "base/diary_base.html" %}
+{% block body %}
+
+<h2>変更履歴：{{ page.code_item }}</h2>
+<table>
+  <thead>
+    <tr>
+      <th>変更日時</th>
+      <th>変更者</th>
+      <th>変更内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for record in changes %}
+    <tr>
+      <td>{{ record.history_date }}</td>
+      <td>{{ record.history_user }}</td>
+      <td>
+        <ul>
+          {% for change in record.changes %}
+            <!--change.newに古い値、change.oldに新しい値が入っている-->
+            <div align="left"><strong>{{ change.field }}:</strong> {{ change.new }} -> {{ change.old }}<br></div>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3">変更履歴がありません</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2 class="link-container">
+  <a href="{% url 'diary:page_detail' page.id %}">戻る</a>
+</h2>
+
+{% endblock %}

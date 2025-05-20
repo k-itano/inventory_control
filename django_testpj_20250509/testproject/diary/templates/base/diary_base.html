@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <meta charset="utf-8">
+  <title>入出庫管理システム</title>
+</head>
+<body>
+  <h1>入出庫管理システム</h1>
+  <div class="content">
+    {% block body %}
+    {% endblock %}
+  </div>
+  <div class="footer">
+    <p></p>
+  </div>
+</body>
+<form action="{% url 'accounts:logout' %}" method="post">
+  {% csrf_token%}
+  <button type="submit">ログアウト</button>
+</form>
+</html>

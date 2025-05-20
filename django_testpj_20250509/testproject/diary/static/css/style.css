@@ -1,0 +1,332 @@
+:root{
+  --main-color: #0172BB;
+  --sub-color: #2EDFF1;
+  --main-bg-color: #f5f5f5;
+  --main-bg-color-hover: #e1e1e1;
+  --main-text-color: #f5f5f5;
+  --main-text-color-hover: #000000;
+}
+
+/* リンク */
+a {
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+/* テーブル全体をコンパクトにするスタイル */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #ccc;
+}
+
+/* ヘッダーセルとデータセルのスタイル */
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 2px 5px; /* 内側の余白 */
+  text-align: center;
+  font-size: 12px; 
+}
+
+/* 奇数行の背景色 */
+table tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+/* 行をホバーしたときの背景色 */
+table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* ソート可能なヘッダーセルのスタイル */
+th.sortable {
+  cursor: pointer;
+}
+th.sortable:after {
+  content: "\25B2";
+  float: right;
+  opacity: 0.5;
+}
+th.sortable.asc:after {
+  content: "\25B2";
+}
+th.sortable.desc:after {
+  content: "\25BC";
+}
+
+/* リンクのスタイル */
+table td a {
+  display: block;
+  padding: 0.2em 0.4em; /* 内側の余白を減らす */
+  font-size: 12px; /* フォントサイズを小さくする */
+}
+
+h1 {
+  font-family: 'Arial', sans-serif;
+  font-size: 36px;
+  color: #F3FFFF;
+  text-align: center;
+  background: linear-gradient(90deg, #0172BB, #002DB9);
+  padding: 12px 18px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 16px;
+  transition: background 0.3s ease;
+}
+
+h2 {
+  font-family: 'Arial', sans-serif;
+  font-size: 24px;
+  color: #F3FFFF;
+  text-align: center;
+  background: linear-gradient(90deg, #0172BB, #002DB9);
+  padding: 5px 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 5px;
+}
+
+h3 {
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  color: #F3FFFF; /* 文字色を白に設定 */
+  text-align: center;
+  background:  #007bff;
+  padding: 6px 15px; /* 内側の余白を設定 */
+  border-radius: 50px; /* 楕円形にするために大きな値を設定 */
+  border: 2px solid #e7f3ff; /* 濃い青の枠線 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 影を追加 */
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+/* 全体のスタイル */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+/* フォームコンテナ */
+.input-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* ラベルと入力フィールド */
+.label-form {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+
+.input-form input, .input-form select{
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.button-form {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+/* タブレット向けのスタイル */
+@media (min-width: 768px) {
+  .input-form {
+    max-width: 800px;
+  }
+
+  .input-form input, .input-form select {
+    font-size: 18px;
+  }
+
+  .button-form {
+    font-size: 18px;
+  }
+}
+
+/* 印刷されないようにする */
+@media print {
+  .no-print {
+    display: none;
+  }
+}
+
+/* フォームコンテナ */
+.list-form {
+  max-width: 1280px; /* コンテナの最大幅を調整 */
+  margin: 0 5px;
+  padding: 5px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* フォームグループをフレックスボックスで横並びにする */
+.form-group {
+  margin: 5px 5px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: right;
+}
+
+.form-group label {
+  padding-left:20px;
+  padding-right:10px;
+}
+
+/* list-form テーブル用 */
+.list-form label {
+  font-weight: bold;
+}
+
+.list-form input[type="text"], .list-form input[type="date"] {
+  float: left;
+  padding: 8px;
+  margin: 0px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.list-form button, .list-form a {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.list-form button:hover, .list-form a:hover {
+  background-color: #0056b3;
+}
+
+/* フィルタータイトルのスタイル */
+.list-form h3 {
+  font-size: 16px;
+  margin: 5px;
+}
+
+.bottom-fix {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 30px;
+  background-color: rgba(255, 255, 255, 0); /* 背景色を透明に設定 */
+  padding: 10px 0;
+  padding-left: 20px; /* 左端に隙間を追加 */
+  z-index: 1000; /* 他の要素の上に表示 */
+}
+
+.bottom-fix a {
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: #F3FFFF;
+  background: #007bff;
+  transition: background-color 0.3s ease;
+}
+
+.bottom-fix a:hover {
+  background-color: #e1e1e1;
+}
+
+/* フッター用 */
+.footer {
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(90deg, #0172BB, #002DB9); /* 背景色を線形グラデーションに設定 */
+  text-align: right; /* テキストを右寄せに設定 */;
+  padding: 10px 0;
+  height: 40px; /* フッターの高さを60pxに設定 */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* 上部に影を追加 */
+  z-index: 1000; /* 他の要素の上に表示 */
+}
+
+.footer p {
+  margin: 0;
+  color: #F3FFFF;
+  padding-right: 20px; /* 右側に余白を追加して文字を少し内側に寄せる */
+}
+
+/* コンテンツの下部に余白を追加 */
+.content {
+  padding-bottom: 20px; /* フッターの高さ分の余白を追加 */
+}
+
+/* 中央から背景色が変わるボタン */
+.c-btn {
+  cursor: pointer;
+  transition: .2s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+.c-btn {
+  background: var(--main-color);
+  border: 2px solid var(--main-color);
+  border-radius: 60px;
+  color: var(--main-text-color);
+  display: inline-block;
+  font-weight: bold;
+  max-width: 300px;
+  padding: 15px 40px;
+  text-align: center;
+  margin: 20px 20px;
+}
+
+.c-btn.slide {
+  background: var(--main-text-color);
+  color: var(--main-color);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+.c-btn.slide::after {
+  background: var(--main-color);
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+  width: 100%;
+  height: 100%;
+  transform: scale(0, 1);
+  transform-origin: left top;
+  transition: .2s cubic-bezier(0.45, 0, 0.55, 1);
+  z-index: -1;
+}
+.c-btn.slide:hover {
+  color: var(--main-text-color);
+}
+.c-btn.slide:hover::after {
+  transform: scale(1, 1);
+}

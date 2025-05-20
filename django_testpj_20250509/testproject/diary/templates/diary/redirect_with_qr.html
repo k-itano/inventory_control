@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting...</title>
+    <p>QR URL: {{ qr_url }}</p>
+    <script>
+        console.log("QR URL:", "{{ qr_url }}");  // デバッグ用ログ
+        window.open("{{ qr_url }}", "_blank");
+        window.location.href = "{% url 'diary:index' %}";
+    </script>
+</head>
+<body>
+    <p>リダイレクト中...</p>
+</body>
+</html>

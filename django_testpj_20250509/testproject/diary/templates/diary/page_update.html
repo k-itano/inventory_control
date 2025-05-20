@@ -1,0 +1,60 @@
+{% extends "base/diary_base.html" %}
+{% block body %}
+
+<h2>在庫変更</h2>
+
+<form method="POST" enctype="multipart/form-data" class="input-form">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="id_code_item">品目</label>
+        {{ form.code_item }}
+    </div>
+    <div class="form-group">
+        <label for="id_code_item_brand">品種</label>
+        {{ form.code_item_brand }}
+    </div>
+    <div class="form-group">
+        <label for="id_code_area">産地</label>
+        {{ form.code_area }}
+    </div>
+    <div class="form-group">
+        <label for="id_code_put_human">担当者</label>
+        {{ form.code_put_human }}
+    </div>
+    <div class="form-group">
+        <label for="id_area_detail">地名</label>
+        {{ form.area_detail }}
+    </div>
+    <div class="form-group">
+        <label for="id_put_date">入庫日時</label>
+        {{ form.put_date }}
+    </div>
+    <div class="form-group">
+        <label for="id_put_qty">入庫数</label>
+        {{ form.put_qty }}
+    </div>
+    <div class="form-group">
+        <label for="id_put_qty_unit">数量単位</label>
+        {{ form.put_qty_unit }}
+    </div>
+    <div class="form-group">
+        <label for="id_put_wt">入庫重量</label>
+        {{ form.put_wt }}
+    </div>
+    <div class="form-group">
+        <label for="id_put_wt_unit">重量単位</label>
+        {{ form.put_wt_unit }}
+    </div>
+    <div class="form-group">
+        <label for="id_picture">画像</label>
+        {{ form.picture }}
+    </div>
+    <button type="submit">更新</button>
+</form>
+<br>
+
+<h2 class="link-container">
+    <a href="{% url 'diary:page_detail' page.id %}">戻る</a>
+</h2>
+  
+{% endblock %}

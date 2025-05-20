@@ -1,0 +1,68 @@
+{% extends "base/diary_base.html" %}
+{% block body %}
+
+<h2>出庫処理</h2>
+
+<form method="POST" enctype="multipart/form-data" class="input-form">
+    {% csrf_token %}
+    <div>
+        {{ form.non_field_errors }}  <!-- 非フィールドエラーメッセージを表示 -->
+        <label for="id_code_item" class="label-form">品目</label>
+        <div class="input-form">{{ page.code_item }}</div>
+        <input type="hidden" name="code_item" value="{{ page.code_item.code }}">
+
+        <label for="id_code_item_brand" class="label-form">品種</label>
+        <div class="input-form">{{ page.code_item_brand }}</div>
+        <input type="hidden" name="code_item_brand" value="{{ page.code_item_brand.code }}">
+
+        <label for="id_code_area" class="label-form">産地</label>
+        <div class="input-form">{{ page.code_area }}</div>
+        <input type="hidden" name="code_area" value="{{ page.code_area.code }}">
+
+        <label for="id_code_put_human" class="label-form">担当者</label>
+        <div class="input-form">{{ page.code_put_human }}</div>
+        <input type="hidden" name="code_put_human" value="{{ page.code_put_human.code }}">
+
+        <label for="id_put_date" class="label-form">入庫日時</label>
+        <input type="datetime-local" id="id_put_date" name="put_date"
+        value="{{ page.put_date|date:'Y-m-d\\TH:i' }}" class="input-form">
+
+        <label class="label-form">現在の数量</label>
+        <div class="input-form">{{ page.put_qty }}{{ page.put_qty_unit }}</div>
+        <input type="hidden" name="put_qty" value="{{ page.put_qty }}">
+        <input type="hidden" name="put_qty_unit" value="{{ page.put_qty_unit.code }}">
+
+        <label class="label-form">出庫数量</label>
+        <input type="number" name="subtract_quantity" class="input-form" id="id_subtract_qty_value">
+        {{ form.subtract_quantity.errors }}
+
+        <label class="label-form">現在の重量</label>
+        <div class="input-form">{{ page.put_wt }}{{ page.put_wt_unit }}</div>
+        <input type="hidden" name="put_wt" value="{{ page.put_wt }}">
+        <input type="hidden" name="put_wt_unit" value="{{ page.put_wt_unit.code }}">
+
+        <label class="label-form">出庫重量</label>
+        <input type="number" name="subtract_weight" class="input-form" id="id_subtract_wt_value">
+        {{ form.subtract_weight.errors }}
+
+        <label for="id_putout_section" class="label-form">出庫部署</label>
+        <select name="putout_section" id="id_putout_section" class="input-form" required>
+            <option value="" disabled selected>選択してください</option>
+            {% for section in sections %}
+                <option value="{{ section.code }}">{{ section.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="id_picture" class="label-form">画像</label>
+        <div class="input-form">{{ page.picture }}</div>
+
+    </div>
+    <br>
+    <button type="submit">更新</button>
+</form>
+
+<div class="bottom-fix">
+    <a href="{% url 'diary:page_list' %}" class="white">戻る</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base/diary_base.html" %}
+{% block body %}
+
+<ul>
+    <a href="{% url 'diary:page_create' %}">
+        <div class="c-btn slide">入庫入力</div>
+    </a>
+    <a href="{% url 'diary:page_list' %}">
+        <div class="c-btn slide">在庫一覧</div>
+    </a>
+    <a href="{% url 'diary:page_putoutlist' %}">
+        <div class="c-btn slide">出庫一覧</div>
+    </a>
+</ul>
+<ul>
+    <a href="{% url 'diary:master_item' %}">
+        <div class="c-btn slide">品目マスタ</div>
+    </a>
+    <a href="{% url 'diary:master_brand' %}">
+        <div class="c-btn slide">品種マスタ</div>
+    </a>
+</ul>
+
+{% endblock %}

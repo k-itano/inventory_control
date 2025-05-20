@@ -1,0 +1,68 @@
+{% extends "base/diary_base.html" %}
+{% block body %}
+
+<style>
+  .list-form label {
+    width: 100px; /* ラベルの固定幅を設定 */
+    font-weight: bold;
+    margin: 0px 20px;
+  }
+</style>
+
+<h2>詳細表示</h2>
+<table>
+  <tr>
+    <th>品目</th>
+    <td>{{ page.code_item }}</td>
+  </tr>
+  <tr>
+    <th>品種</th>
+    <td>{{ page.code_item_brand }}</td>
+  </tr>
+  <tr>
+    <th>産地</th>
+    <td>{{ page.code_area }}</td>
+  </tr>
+  <tr>
+    <th>担当者</th>
+    <td>{{ page.code_put_human }}</td>
+  </tr>
+  <tr>
+    <th>地名</th>
+    <td>{{ page.area_detail }}</td>
+  </tr>
+  <tr>
+    <th>入庫日時</th>
+    <td>{{ page.put_date }}</td>
+  </tr>
+  <tr>
+    <th>入庫数</th>
+    <td>{{ page.put_qty }}</td>
+    <td>{{ page.put_qty_unit }}</td>
+  </tr>
+  <tr>
+    <th>入庫重量</th>
+    <td>{{ page.put_wt }}</td>
+    <td>{{ page.put_wt_unit }}</td>
+  </tr>
+  <tr>
+    <th>更新日時</th>
+    <td>{{ page.updated_at }}</td>
+  </tr>
+</table>
+
+<dib>{{ page.body | linebreaksbr }}</dib>
+{% if page.picture %}
+    <img src="{{ page.picture.url }}">
+{% endif %}
+<br>
+
+<div class="bottom-fix">
+  <a href="{% url 'diary:page_list' %}" class="white">戻る</a>
+  <a href="{% url 'diary:page_update' page.id %}" class="white">編集</a>
+  <a href="{% url 'diary:page_history' page.id %}" class="white">履歴</a>
+  <a href="{% url 'diary:page_delete' page.id %}" class="white">削除</a>
+</div>
+
+
+{% endblock %}

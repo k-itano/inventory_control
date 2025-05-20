@@ -1,0 +1,160 @@
+{% extends "base/diary_base.html" %}
+{% block body %}
+
+<h2>在庫一覧</h2>
+
+<!-- 検索ボックスの追加 -->
+<form method="get" class="list-form">
+  <h3>アイテムフィルタ</h3>
+  <br>
+  <div class="form-group">
+    <label for="code_item">品目コード:</label>
+    <input type="text" id="code_item" name="code_item" value="{{ code_item }}" placeholder="品目コード">
+    <label for="item">品目:</label>
+    <input type="text" id="item" name="item" value="{{ item }}" placeholder="品目">
+    <label for="item_brand">品種:</label>
+    <input type="text" id="item_brand" name="item_brand" value="{{ item_brand }}" placeholder="品種">
+  </div>
+  <div class="form-group">
+    <label for="area">産地:</label>
+    <input type="text" id="area" name="area" value="{{ area }}" placeholder="産地">
+    <label for="area_detail">地名:</label>
+    <input type="text" id="area_detail" name="area_detail" value="{{ area_detail }}" placeholder="地名">
+    <label for="put_human">入庫担当者:</label>
+    <input type="text" id="put_human" name="put_human" value="{{ put_human }}" placeholder="入庫担当者">
+  </div>
+  <h3>入庫日時フィルタ</h3>
+  <br>
+  <div class="form-group">
+    <label for="start_date">開始日:</label>
+    <input type="date" id="start_date" name="start_date" value="{{ start_date }}">
+    <label for="end_date">終了日:</label>
+    <input type="date" id="end_date" name="end_date" value="{{ end_date }}">
+    <button type="submit">検索</button>
+    <a href="{% url 'diary:page_list' %}">リセット</a>
+    <button id="toggle-zero-records-hide">入庫数と入庫重量が0を非表示</button>
+    <button id="toggle-zero-records-show">入庫数と入庫重量が0を再表示</button>
+  </div>
+</form>
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th class="sortable" data-column="put_date">入庫日時</th>
+      <th class="sortable" data-column="code_item">品目コード</th>
+      <th class="sortable" data-column="code_item">品目</th>
+      <th class="sortable" data-column="code_item_brand">品種</th>
+      <th class="sortable" data-column="code_area">産地</th>
+      <th class="sortable" data-column="area_detail">地名</th>
+      <th class="sortable" data-column="code_put_human">入庫担当者</th>
+      <th class="sortable" data-column="put_qty">入庫数</th>
+      <th class="sortable" data-column="put_qty_unit">単位：入庫数</th>
+      <th class="sortable" data-column="put_wt">入庫重量</th>
+      <th class="sortable" data-column="put_wt_unit">単位：入庫重量</th>
+      <th>詳細</th>
+      <th>QRコード</th>
+      <th>出庫</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for page in page_list %}
+    <tr>
+      <td>{{ page.put_date }}</td>
+      <td>{{ page.code_item.code }}</td>
+      <td>{{ page.code_item }}</td>
+      <td>{{ page.code_item_brand }}</td>
+      <td>{{ page.code_area }}</td>
+      <td>{{ page.area_detail }}</td>
+      <td>{{ page.code_put_human }}</td>
+      <td>{{ page.put_qty }}</td>
+      <td>{{ page.put_qty_unit }}</td>
+      <td>{{ page.put_wt }}</td>
+      <td>{{ page.put_wt_unit }}</td>
+      <td><a href="{% url 'diary:page_detail' page.id %}">詳細</a></td>
+      <td><a href="/diary/qr/{{ page.id }}/" target="_blank" rel="noopener noreferrer">表示</a></td>
+      <td><a href="{% url 'diary:page_putout' page.id %}">出庫</a></td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="14">在庫がないよ</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<br>
+<div class="bottom-fix">
+  <a href="{% url 'diary:index' %}">戻る</a>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+  
+      const comparer = (idx, asc) => (a, b) => ((v1, v2) => 
+          v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+      )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+  
+      document.querySelectorAll('th.sortable').forEach(th => th.addEventListener('click', function() {
+          const table = th.closest('table');
+          Array.from(table.querySelectorAll('tbody > tr'))
+              .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+              .forEach(tr => table.querySelector('tbody').appendChild(tr) );
+  
+          // 現在のソート状態を表すクラスを削除
+          table.querySelectorAll('th').forEach(th => th.classList.remove('asc', 'desc'));
+          
+          // 新しいソート状態を表すクラスを追加
+          th.classList.toggle('asc', this.asc);
+          th.classList.toggle('desc', !this.asc);
+      }));
+  
+      const toggleHideButton = document.getElementById('toggle-zero-records-hide');
+      const toggleShowButton = document.getElementById('toggle-zero-records-show');
+      const rows = document.querySelectorAll('tbody > tr');
+  
+      // 初期状態の行の表示を更新
+      rows.forEach(row => {
+          const putQty = parseFloat(getCellValue(row, 7)); // 入庫数の列インデックス (7)
+          const putWt = parseFloat(getCellValue(row, 9));  // 入庫重量の列インデックス (9)
+          const rowKey = `row-${row.rowIndex}`;
+          if (putQty === 0 && putWt === 0) {
+              if (sessionStorage.getItem(rowKey) === 'hidden') {
+                  row.style.display = 'none';
+              } else {
+                  row.style.display = '';
+              }
+          }
+      });
+  
+      // 非表示ボタンの動作
+      toggleHideButton.addEventListener('click', function() {
+          rows.forEach(row => {
+              const putQty = parseFloat(getCellValue(row, 7)); // 入庫数の列インデックス (7)
+              const putWt = parseFloat(getCellValue(row, 9));  // 入庫重量の列インデックス (9)
+              const rowKey = `row-${row.rowIndex}`;
+              if (putQty === 0 && putWt === 0) {
+                  row.style.display = 'none';
+                  sessionStorage.setItem(rowKey, 'hidden');
+              }
+          });
+      });
+  
+      // 再表示ボタンの動作
+      toggleShowButton.addEventListener('click', function() {
+          rows.forEach(row => {
+              const putQty = parseFloat(getCellValue(row, 7)); // 入庫数の列インデックス (7)
+              const putWt = parseFloat(getCellValue(row, 9));  // 入庫重量の列インデックス (9)
+              const rowKey = `row-${row.rowIndex}`;
+              if (putQty === 0 && putWt === 0) {
+                  row.style.display = '';
+                  sessionStorage.removeItem(rowKey);
+              }
+          });
+      });
+  });
+</script>
+  
+
+{% endblock %}
