@@ -35,6 +35,10 @@ ALLOWED_HOSTS = [
 ]
 
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://inventory-control-f7ewh6e2cye6hbgt.japaneast-01.azurewebsites.net',
+]
+
 # Application definition
 
 INSTALLED_APPS = [
