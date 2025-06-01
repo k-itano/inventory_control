@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-i(6&w@41z&)8!b&%rl63ysx#pe%911u262kptj7%jq#880a$rc
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '*'
     '127.0.0.1',  # ローカルホスト
     'localhost',  # ローカルホスト
     '192.168.2.73',  # 必要なホストを追加
