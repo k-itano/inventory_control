@@ -1,0 +1,2 @@
+[deployment]
+command = sh deploy.sh
