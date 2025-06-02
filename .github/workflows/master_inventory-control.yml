@@ -13,9 +13,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read #This is required for actions/checkout
-
     steps:
       - uses: actions/checkout@v4
 
@@ -24,21 +21,13 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Create and start virtual environment
+      - name: Create and start virtual environment, install dependencies, and collect static files
         run: |
           python -m venv venv
           source venv/bin/activate
-      
-      - name: Install dependencies
-        working-directory: testproject
-        run: pip install -r requirements.txt
-        
-      - name: Collect static files
-        working-directory: testproject
-        run: |
-          ../venv/bin/python manage.py collectstatic --noinput
-
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+          pip install -r testproject/requirements.txt
+          cd testproject
+          python manage.py collectstatic --noinput
 
       - name: Zip artifact for deployment
         run: cd testproject && zip -r ../release.zip ./*
