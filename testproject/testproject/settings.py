@@ -150,4 +150,4 @@ STATICFILES_DIRS = [
     BASE_DIR / "diary" / "static",
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR,　"diary" / "staticfiles")
+STATIC_ROOT = os.path.join(BASE_DIR, "diary" / "staticfiles")
